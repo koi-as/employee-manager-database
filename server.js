@@ -9,7 +9,7 @@ const app = express();
 const db = mysql.createConnection(
     {
         host: 'localhost',
-        user: 'root',
+        user: process.env.USER,
         password: process.env.PASSWORD,
         database: ''
     }
