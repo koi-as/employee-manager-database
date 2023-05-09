@@ -1,9 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const express = require('express');
 require('dotenv').config();
-
-const app = express();
 
 const { 
     menuQuestion, 
@@ -25,32 +22,35 @@ const init = () => {
     inquirer
         .prompt(menuQuestion)
         .then((data) => {
-            if (data.menu = 'View all departments') {
+            console.log(data);
+            if (data.menu === 'View all departments') {
                 db.query('SELECT * FROM department', (err, results) => {
                     console.log(results);
+                    console.log(data.menu)
                     init();
                 });
-            } else if (data.menu = 'View all role') {
+            } else if(data.menu === 'View all roles') {
                 db.query('SELECT * FROM role', (err, results) => {
                     console.log(results);
+                    console.log('Viewing all roles')
                     init();
                 });
-            } else if (data.menu = 'View all employees') {
+            } else if(data.menu === 'View all employees') {
                 db.query('SELECT * FROM employee', (err, results) => {
                     console.log(results);
                     init();
                 });
-            } else if (data.menu = 'Add a department') {
+            } else if(data.menu === 'Add a department') {
                 inquirer
                     .prompt(addDepartmentQuestion)
                     .then((newDepData) => {
                         console.log(newDepData);
                     });
-                    db.query('SELECT * FROM department', (err, results) => {
-                        console.log(results);    
+                db.query('SELECT * FROM department', (err, results) => {
+                    console.log(results);    
                     init();
-                    });
-            } else if (data.menu = 'Add a role') {
+                });
+            } else if(data.menu === 'Add a role') {
                 inquirer
                     .prompt(addRoleQuestion)
                     .then((newRoleData) => {
@@ -60,7 +60,7 @@ const init = () => {
                     console.log(results);
                     init();
                 });
-            } else if (data.menu = 'Add an employee') {
+            } else if(data.menu === 'Add an employee') {
                 inquirer
                     .prompt(addEmployeeQuestion)
                     .then((newEmplData) => {
@@ -70,7 +70,7 @@ const init = () => {
                     console.log(results);
                     init();
                 });
-            } else if (data.menu = 'Update an employee role') {
+            } else if(data.menu === 'Update an employee role') {
                 inquirer
                     .prompt(updateEmployeeQuestion)
                     .then((updateEmplRole) => {
@@ -80,10 +80,10 @@ const init = () => {
                     console.log(results);
                     init();
                 });
+            } else if (data.menu === 'Quit') {
+                console.log('Goodbye!');
             }
     });
 };
 
 init();
-
-module.exports = db;
