@@ -53,6 +53,9 @@ const init = () => {
                     .prompt(addRoleQuestion)
                     .then((newRoleData) => {
                         console.log(newRoleData);
+                        db.query('INSERT INTO role (title, salary) VALUES (?, ?)', [newRoleData.roleTitle, newRoleData.roleSalary], (err, result) => {
+                            err ? console.log(err) : console.log(result);
+                        });
                         addRole();
                     });
             } else if(data.menu === 'Add an employee') {
@@ -60,6 +63,9 @@ const init = () => {
                     .prompt(addEmployeeQuestion)
                     .then((newEmplData) => {
                         console.log(newEmplData);
+                        db.query('INSERT INTO employee (first_name, last_name) VALUES (?, ?)', [newEmplData.firstName, newEmplData.lastName], (err, result) => {
+                            err ? console.log(err) : console.log(result);
+                        });
                         addEmployee();
                     });
             } else if(data.menu === 'Update an employee role') {
